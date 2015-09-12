@@ -25,7 +25,7 @@ In a more realistic example we would prompt for payment information such as a
 credit card number here.
  --%>
 <p>Do you promise to send me <%=format.format(amount)%>?</p>
-<form action="paymenthandler.jsp" method="POST">
+<form action="paymenthandler" method="POST">
 <input name="amount" type="hidden" value="<%=request.getParameter("amount")%>">
 <input name="currency" type="hidden" value="<%=request.getParameter("currency")%>">
 <input name="orderid" type="hidden" value="<%=request.getParameter("orderid")%>">
