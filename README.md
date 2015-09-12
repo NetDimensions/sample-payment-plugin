@@ -33,6 +33,13 @@ You will need to configure two context parameters as follows.
 On Tomcat you can do this **without** modifying the WAR file as described
 [here](https://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Context_Parameters).
 
+```xml
+<Context>
+  <Parameter name="merchantUrl" value="https://www.example.com/ekp/"/>
+  <Parameter name="merchantKey" value="9429d29c503b489bee99cad3fab65e1b431a96ba"/>
+</Context>
+```
+
 Configuration
 -------------
 
