@@ -16,7 +16,7 @@
 		 * Normally we would read the payment information from the request here,
 		 * pass it on to the actual payment gateway, and validate the response. Here
 		 * we simply assume the payment was successful and construct the response to
-		 * pass to EKP.
+		 * pass to Talent Suite.
 		 */
 		String sigBase = "amount=" + URLEncoder.encode(amount, "UTF-8") + "&currency=" + URLEncoder.encode(currency, "UTF-8") + "&orderid="
 				+ URLEncoder.encode(orderId, "UTF-8");

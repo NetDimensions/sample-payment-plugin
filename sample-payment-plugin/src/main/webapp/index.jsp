@@ -1,3 +1,4 @@
+<%@page import="com.netdimensions.servlet.Servlets"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="java.util.Currency"%>
 <%@page import="java.math.BigDecimal"%>
@@ -28,6 +29,7 @@ credit card number here.
 <input name="amount" type="hidden" value="<%=request.getParameter("amount")%>">
 <input name="currency" type="hidden" value="<%=request.getParameter("currency")%>">
 <input name="orderid" type="hidden" value="<%=request.getParameter("orderid")%>">
+<input name="orderid" type="hidden" value="<%=session.getAttribute(Servlets.ATTRIBUTE_NAME_CSRF_TOKEN)%>">
 <input name="yes" type="submit" value="Yes">
 <input name="no" type="submit" value="No">
 </form>
