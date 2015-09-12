@@ -17,17 +17,18 @@ Learning.
 Deployment
 ----------
 
-You can build a WAR file using Maven, and deploy it to your application server in the usual way.
+You can build a WAR file using Maven, and deploy it to your application server
+in the usual way.
 
-For example, if you are using Apache Tomcat, you can copy the WAR file to Tomcat's `webapps` directory.
+For example, if you are using Apache Tomcat, you can copy the WAR file to
+Tomcat's `webapps` directory.
 
 You will need to configure two context parameters as follows.
 
-* `com.netdimensions.client.servlet.TALENT_SUITE_BASE_URL` will need to point to
-  the base URL of your NetDimensions Talent Suite installation.
-* `com.netdimensions.client.servlet.PAYMENT_PLUGIN_KEY` will need to contain the
-  secret key value used to compute the HMAC-MD5 message authentication code for
-  the response.
+* `merchantUrl` will need to point to the base URL of your NetDimensions Talent
+  Suite installation.
+* `merchantKey` will need to contain the secret key value used to compute the
+  HMAC-MD5 message authentication code for the response.
   
 On Tomcat you can do this **without** modifying the WAR file as described
 [here](https://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Context_Parameters).
@@ -45,9 +46,8 @@ server is running on `https://www.example.com/` and the content path for the web
 application is `/samplepaymentplugin`, then *Payment plugin URL* should be set
 to `https://www.example.com/samplepaymentplugin/index.jsp`.
 
-*Payment plugin key* should be set to the same value as the
-`com.netdimensions.client.servlet.PAYMENT_PLUGIN_KEY` context parameter
-mentioned above.
+*Payment plugin key* should be set to the same value as the `merchantKey`
+context parameter mentioned above.
 
 Note that the above properties will not appear if your NetDimensions Learning
 site has been configured to use one of the natively-supported payment
