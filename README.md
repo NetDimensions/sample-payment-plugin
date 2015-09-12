@@ -2,11 +2,11 @@ Sample Payment Plugin
 =====================
 
 This project provides a sample payment plugin for use with [NetDimensions
-Learning](http://www.netdimensions.com/talent-suite/learning.php), implemented 
-as a Java web application. Note that this code is intended primarily to demonstrate
-the protocol by which the plugin communicates with NetDimensions Learning.
-It does **not** validate payment information against a real payment gateway; nor
-does it collect payment information from the user.
+Learning](http://www.netdimensions.com/talent-management-suite/learning-management-system-lms.php),
+implemented as a Java web application. Note that this code is intended primarily
+to demonstrate the protocol by which the plugin communicates with NetDimensions
+Learning. It does **not** validate payment information against a real payment
+gateway; nor does it collect payment information from the user.
 
 The sample payment plugin requires an application server that supports the Java
 Servlet 2.5 specification, such as Apache Tomcat 6.0 or higher.
