@@ -12,26 +12,63 @@
 			.getParameter("currency")));
 %>
 <!DOCTYPE html>
-<html>
-<head>
-<link href="default.css" rel="stylesheet" type="text/css">
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Payment Plugin</title>
-</head>
-<body>
-<h1>Payment Plugin</h1>
-<%--
-In a more realistic example we would prompt for payment information such as a
-credit card number here.
- --%>
-<p>Do you promise to send me <%=format.format(amount)%>?</p>
-<form action="paymenthandler" method="POST">
-<input name="amount" type="hidden" value="<%=request.getParameter("amount")%>">
-<input name="currency" type="hidden" value="<%=request.getParameter("currency")%>">
-<input name="orderid" type="hidden" value="<%=request.getParameter("orderid")%>">
-<input name="orderid" type="hidden" value="<%=session.getAttribute(Servlets.ATTRIBUTE_NAME_CSRF_TOKEN)%>">
-<input name="yes" type="submit" value="Yes">
-<input name="no" type="submit" value="No">
-</form>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Sample payment plugin for NetDimensions Learning">
+    <meta name="author" content="NetDimensions">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Sample payment plugin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="theme.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body role="document">
+
+    <div class="container theme-showcase" role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Sample payment plugin</h1>
+        <p>The sample payment plugin is a placeholder for a real payment gateway.</p>
+        <p>It demonstrates the checkout flow and the protocol by which a a payment gateway communicates with NetDimensions Learning,
+        but does <strong>not</strong> collect payment information from the user.</p>
+        <p>A real payment gateway would collect and validate billing information here.</p>
+        <p>The amount to be paid is <strong><%=format.format(amount)%></strong>.</p>
+        <form action="paymenthandler" method="POST">
+          <input name="amount" type="hidden" value="<%=request.getParameter("amount")%>">
+          <input name="currency" type="hidden" value="<%=request.getParameter("currency")%>">
+          <input name="orderid" type="hidden" value="<%=request.getParameter("orderid")%>">
+          <input name="CSRFToken" type="hidden" value="<%=session.getAttribute(Servlets.ATTRIBUTE_NAME_CSRF_TOKEN)%>">
+          <button name="cancel" type="submit" class="btn btn-lg btn-default">Cancel</button>
+          <button name="pay" type="submit" class="btn btn-lg btn-success">Pay <%=format.format(amount)%></button>
+        </form>
+      </div>
+
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </body>
 </html>

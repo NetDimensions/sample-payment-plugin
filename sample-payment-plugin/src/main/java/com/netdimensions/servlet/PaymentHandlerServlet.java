@@ -1,5 +1,7 @@
 package com.netdimensions.servlet;
 
+import static com.netdimensions.servlet.Servlets.initCsrfToken;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
@@ -22,12 +24,14 @@ public class PaymentHandlerServlet extends HttpServlet {
 	private static final String ALGORITHM = "HmacMD5";
 
 	protected void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws IOException {
+		verifyCsrfToken(req);
 		final String location = handle(req);
 		resp.sendRedirect(initParameter("merchantUrl", "com.netdimensions.client.servlet.TALENT_SUITE_BASE_URL") + location);
 	}
 
 	/**
-	 * @param fallbackName for backward compatibility.
+	 * @param fallbackName
+	 *            for backward compatibility.
 	 */
 	private String initParameter(final String preferredName, final String fallbackName) {
 		return MoreObjects.firstNonNull(initParameter(preferredName), initParameter(fallbackName));
@@ -37,14 +41,14 @@ public class PaymentHandlerServlet extends HttpServlet {
 		return getServletContext().getInitParameter(name);
 	}
 
-	private String handle(final HttpServletRequest request) {
-		final NameValuePair orderId = nameValuePair(request, "orderid");
-		if (request.getParameter("no") == null) {
+	private String handle(final HttpServletRequest req) {
+		final NameValuePair orderId = nameValuePair(req, "orderid");
+		if (req.getParameter("cancel") == null) {
 			/*
 			 * Normally we would read the payment information from the request here, pass it on to the actual payment gateway, and validate the response. Here
 			 * we simply assume the payment was successful and construct the response to pass to Talent Suite.
 			 */
-			final ImmutableList<NameValuePair> sigBase = ImmutableList.of(nameValuePair(request, "amount"), nameValuePair(request, "currency"), orderId);
+			final ImmutableList<NameValuePair> sigBase = ImmutableList.of(nameValuePair(req, "amount"), nameValuePair(req, "currency"), orderId);
 			final byte[] sigBytes = newMac().doFinal(NameValuePair.toString(sigBase).getBytes(StandardCharsets.UTF_8));
 			final String sig = BaseEncoding.base16().lowerCase().encode(sigBytes);
 
@@ -52,6 +56,18 @@ public class PaymentHandlerServlet extends HttpServlet {
 		} else {
 			// Payment cancelled
 			return NameValuePair.url("servlet/ekp/externalpaymentcancel", ImmutableList.of(orderId));
+		}
+	}
+
+	private static void verifyCsrfToken(final HttpServletRequest req) {
+		final Object expectedToken = req.getSession().getAttribute(Servlets.ATTRIBUTE_NAME_CSRF_TOKEN);
+		final String actualToken = req.getParameter("CSRFToken");
+		if (actualToken == null) {
+			initCsrfToken(req.getSession());
+			throw new RuntimeException("Missing CSRFToken: expected '" + expectedToken + "'");
+		} else if (!expectedToken.equals(actualToken)) {
+			initCsrfToken(req.getSession());
+			throw new RuntimeException("Incorrect CSRFToken: expected '" + expectedToken + "'; actual '" + actualToken + "'");
 		}
 	}
 
