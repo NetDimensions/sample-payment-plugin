@@ -45,17 +45,17 @@ On Tomcat you can do this **without** modifying the WAR file as described
 Configuration
 -------------
 
-To configure the sample payment plugin, navigate to *Manage* > *System
-Administration Manager* > *System Settings* > *System Configuration* in your
-NetDimensions Talent Suite site, and examine the *Online payment* category.
+To configure the sample payment plugin, navigate to **Manage** > **System
+Administration Manager** > **System Settings** > **System Configuration** in
+your NetDimensions Learning site, and examine the **Online payment** category.
 
-*Payment plugin URL* should be set to point to `index.jsp` in
-your deployment of the sample payment plugin. For example, if your application
-server is running on `https://www.example.com/` and the content path for the web
-application is `/samplepaymentplugin`, then *Payment plugin URL* should be set
-to `https://www.example.com/samplepaymentplugin/index.jsp`.
+**Payment plugin URL** should be set to point to `index.jsp` in your deployment
+of the sample payment plugin. For example, if your application server is running
+on `https://www.example.com/` and the content path for the web application is
+`/samplepaymentplugin`, then **Payment plugin URL** should be set to
+`https://www.example.com/samplepaymentplugin/index.jsp`.
 
-*Payment plugin key* should be set to the same value as the `merchantKey`
+**Payment plugin key** should be set to the same value as the `merchantKey`
 context parameter mentioned above.
 
 Note that the above properties will not appear if your NetDimensions Learning
