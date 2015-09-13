@@ -17,11 +17,13 @@ Learning.
 Deployment
 ----------
 
-You can build a WAR file using Maven, and deploy it to your application server
-in the usual way.
+A WAR file is available
+[here](https://www.dropbox.com/s/1eb9zkz77ctwb3x/sample-payment-plugin.war?dl=0),
+or you can build from source using Maven.
 
-For example, if you are using Apache Tomcat, you can copy the WAR file to
-Tomcat's `webapps` directory.
+You can deploy the WAR file to your application server in the usual way. For
+example, if you are using Apache Tomcat, you can copy the WAR file to Tomcat's
+`webapps` directory.
 
 You will need to configure two context parameters as follows.
 
