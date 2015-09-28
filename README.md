@@ -38,7 +38,7 @@ On Tomcat you can do this **without** modifying the WAR file as described
 ```xml
 <Context>
   <Parameter name="merchantUrl" value="https://www.example.com/ekp/"/>
-  <Parameter name="merchantKey" value="9429d29c503b489bee99cad3fab65e1b431a96ba"/>
+  <Parameter name="merchantKey" value="my_secret_key"/>
 </Context>
 ```
 
