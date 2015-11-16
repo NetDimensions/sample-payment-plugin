@@ -18,27 +18,25 @@ Deployment
 ----------
 
 A WAR file is available
-[here](https://www.dropbox.com/s/1eb9zkz77ctwb3x/sample-payment-plugin.war?dl=0),
+[here](https://www.dropbox.com/s/yxl3b7ngk8guk2t/sample-payment-plugin-v3.war?dl=0),
 or you can build from source using Maven.
 
 You can deploy the WAR file to your application server in the usual way. For
 example, if you are using Apache Tomcat, you can copy the WAR file to Tomcat's
 `webapps` directory.
 
-You will need to configure two context parameters as follows.
-
-* `merchantUrl` will need to point to the base URL of your NetDimensions Talent
-  Suite installation.
-* `merchantKey` will need to contain the secret key value used to compute the
-  HMAC-MD5 message authentication code for the response.
+Version 3 of the plugin can connect to any number of NetDimensions Learning
+sites. You will need to configure a master key that the plugin will use to
+generate site-specific keys. (The site-specific key is
+`HMAC_SHA256(master_key, url)`, where `url` is the base URL of the NetDimensions
+Learning site.)
   
 On Tomcat you can do this **without** modifying the WAR file as described
 [here](https://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Context_Parameters).
 
 ```xml
 <Context>
-  <Parameter name="merchantUrl" value="https://www.example.com/ekp/"/>
-  <Parameter name="merchantKey" value="my_secret_key"/>
+  <Parameter name="key" value="my_secret_key"/>
 </Context>
 ```
 
@@ -49,14 +47,19 @@ To configure the sample payment plugin, navigate to **Manage** > **System
 Administration Manager** > **System Settings** > **System Configuration** in
 your NetDimensions Learning site, and examine the **Online payment** category.
 
-**Payment plugin URL** should be set to point to `index.jsp` in your deployment
-of the sample payment plugin. For example, if your application server is running
-on `https://www.example.com/` and the content path for the web application is
-`/samplepaymentplugin`, then **Payment plugin URL** should be set to
-`https://www.example.com/samplepaymentplugin/index.jsp`.
+**Payment plugin URL** should be set to the base URL of the payment plugin
+application, followed by `/p/`, followed by the base URL of the NetDimensions
+Learning site. For example, if the payment plugin in deployed at
+`https://pay.example.com/`, and the NetDimensions Learning site is deployed at
+`https://www.example.com/ekp/`, then **Payment plugin URL** should be set to
+`https://pay.example.com/p/https://www.example.com/ekp/`.
 
-**Payment plugin key** should be set to the same value as the `merchantKey`
-context parameter mentioned above.
+**Payment plugin key** should be set to the value of
+`HMAC_SHA256(master_key, url)`, where `url` is the base URL of the NetDimensions
+Learning site. For example, if the master key is `my_secret_key` and the
+NetDimensions Learning site is deployed at `https://www.example.com/ekp/`, then
+**Payment plugin key** should be set to
+`461edb3441708ea098a608d2ebe80527127e6524000fefd92dae5607691cfcf8`. 
 
 Note that the above properties will not appear if your NetDimensions Learning
 site has been configured to use one of the natively-supported payment
