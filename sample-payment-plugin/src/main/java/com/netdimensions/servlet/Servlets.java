@@ -16,7 +16,6 @@ public final class Servlets {
 	}
 
 	private static byte[] randomBytes() {
-
 		final byte[] result = new byte[20];
 		new SecureRandom().nextBytes(result);
 		return result;
@@ -24,5 +23,12 @@ public final class Servlets {
 
 	static void initCsrfToken(final HttpSession session) {
 		session.setAttribute(ATTRIBUTE_NAME_CSRF_TOKEN, BaseEncoding.base16().lowerCase().encode(randomBytes()));
+	}
+
+	/**
+	 * Tomcat normalizes path info by collapsing contiguous slashes. This method attempts to restore the original value if it is known to be an absolute URL.
+	 */
+	public static String fixUrlFromPathInfo(final String pathInfo) {
+		return pathInfo.replaceAll(":/([^/])", "://$1");
 	}
 }

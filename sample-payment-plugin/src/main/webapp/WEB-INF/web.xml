@@ -13,6 +13,10 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>PaymentHandlerServlet</servlet-name>
-		<url-pattern>/paymenthandler</url-pattern>
+		<url-pattern></url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PaymentHandlerServlet</servlet-name>
+		<url-pattern>/p/*</url-pattern>
 	</servlet-mapping>
 </web-app>

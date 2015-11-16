@@ -1,5 +1,7 @@
 package com.netdimensions.net;
 
+import static java.util.Objects.requireNonNull;
+
 import com.google.common.base.Joiner;
 import com.google.common.net.UrlEscapers;
 
@@ -8,8 +10,8 @@ public final class NameValuePair {
 	public final String value;
 
 	public NameValuePair(final String name, final String value) {
-		this.name = name;
-		this.value = value;
+		this.name = requireNonNull(name);
+		this.value = requireNonNull(value);
 	}
 
 	@Override

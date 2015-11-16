@@ -4,13 +4,6 @@
 <%@page import="java.math.BigDecimal"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%
-	final BigDecimal amount = new BigDecimal(
-			request.getParameter("amount"));
-	final NumberFormat format = NumberFormat.getCurrencyInstance();
-	format.setCurrency(Currency.getInstance(request
-			.getParameter("currency")));
-%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,7 +13,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Sample payment plugin for NetDimensions Learning">
     <meta name="author" content="NetDimensions">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="<%=request.getContextPath()%>/favicon.ico">
 
     <title>Sample payment plugin</title>
 
@@ -30,7 +23,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="theme.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/theme.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -49,16 +42,31 @@
         <p>The sample payment plugin is a placeholder for a real payment gateway.</p>
         <p>It demonstrates the checkout flow and the protocol by which a a payment gateway communicates with NetDimensions Learning,
         but does <strong>not</strong> collect payment information from the user.</p>
+<%
+final String amount = request.getParameter("amount");
+final String currency = request.getParameter("currency");
+if (amount == null) {
+%>
+        <p>The sample payment plugin is intended to be invoked called as part of the checkout process, so <strong>go buy some courses</strong>!</p>
+<%
+} else {
+	final NumberFormat format = NumberFormat.getCurrencyInstance();
+	format.setCurrency(Currency.getInstance(currency));
+	final String formatted = format.format(new BigDecimal(amount));
+%>
         <p>A real payment gateway would collect and validate billing information here.</p>
-        <p>The amount to be paid is <strong><%=format.format(amount)%></strong>.</p>
-        <form action="paymenthandler" method="POST">
-          <input name="amount" type="hidden" value="<%=request.getParameter("amount")%>">
-          <input name="currency" type="hidden" value="<%=request.getParameter("currency")%>">
+        <p>The amount to be paid is <strong><%=formatted%></strong>.</p>
+        <form action="" method="POST">
+          <input name="amount" type="hidden" value="<%=amount%>">
+          <input name="currency" type="hidden" value="<%=currency%>">
           <input name="orderid" type="hidden" value="<%=request.getParameter("orderid")%>">
           <input name="CSRFToken" type="hidden" value="<%=session.getAttribute(Servlets.ATTRIBUTE_NAME_CSRF_TOKEN)%>">
           <button name="cancel" type="submit" class="btn btn-lg btn-default">Cancel</button>
-          <button name="pay" type="submit" class="btn btn-lg btn-success">Pay <%=format.format(amount)%></button>
+          <button name="pay" type="submit" class="btn btn-lg btn-success">Pay <%=formatted%></button>
         </form>
+<%
+}
+%>
       </div>
 
 
