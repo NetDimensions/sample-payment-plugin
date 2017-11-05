@@ -18,7 +18,7 @@ Deployment
 ----------
 
 A WAR file is available
-[here](https://www.dropbox.com/s/yxl3b7ngk8guk2t/sample-payment-plugin-v3.war?dl=0),
+[here](https://www.dropbox.com/s/ezf2s2uu6r8hau3/sample-payment-plugin-v3.war?dl=0),
 or you can build from source using Maven.
 
 You can deploy the WAR file to your application server in the usual way. For
